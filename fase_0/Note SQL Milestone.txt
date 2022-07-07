@@ -1,0 +1,25 @@
+Data yang diambil :
+1. dari tabel accident diambil kolom state_number, state_name, first_harmful_event_name, light_condition_name,
+atmospheric_conditions_1_name, 
+2. dari tabel cevent diambil kolom sequence_of_events_name berdasarkan state number
+3. dari tabel distract diambil kolom driver_distracted_by_name berdasarkan state number
+4. dari tabel drimpair diambil kolom condition_impairment_at_time_of_crash_driver_name berdasarkan state number
+5. dari tabel factor diambil kolom contributing_circumstances_motor_vehicle_name berdasarkan state number
+6. dari tabel maneuver diambil kolom driver_maneuvered_to_avoid_name berdasarkan state number
+7. dari tabel nmcrach diambil kolom non_motorist_contributing_circumstances_name berdasarkan state number
+8. dari tabel nmimpair diambil kolom condition_impairment_at_time_of_crash_non_motorist_name berdasarkan state number
+9. dari tabel nmprior diambil kolom non_motorist_action_circumstances_name berdasarkan state number
+10. dari tabel pbtype diambil kolom crash_type_pedestrian_name berdasarkan state number
+11. dari tabel person diambil kolom indication_of_misuse_of_restraint_system_helmet,fatal_injury_at_work berdasarkan state number
+12. dari tabel safetyeq diambil kolom non_motorist_safety_equipment_use berdasarkan state number
+13. dari tabel vehicle diambil kolom, trafficway_description, roadway_alignment, roadway_surface_type,
+roadway_surface_condition_name, crash_type_name, berdasarkan state number
+14. dari tabel vision diambil kolom drivers_vision_obscured_by_name berdasarkan state number
+15. dari tabel vsoe diambil kolom area_of_Impact_associated_with_the_event_name berdasarkan state number
+
+SELECT `bigquery-public-data.nhtsa_traffic_fatalities.accident_2016`.state_number,state_name,relation_to_trafficway_name,light_condition_name,atmospheric_conditions_1_name,fatal_injury_at_work,non_motorist_safety_equipment_use,roadway_alignment,roadway_surface_type,roadway_surface_condition_name
+FROM `bigquery-public-data.nhtsa_traffic_fatalities.accident_2016`
+JOIN `bigquery-public-data.nhtsa_traffic_fatalities.safetyeq_2016` ON `bigquery-public-data.nhtsa_traffic_fatalities.accident_2016`.state_number=`bigquery-public-data.nhtsa_traffic_fatalities.safetyeq_2016`.state_number
+JOIN `bigquery-public-data.nhtsa_traffic_fatalities.person_2016` ON `bigquery-public-data.nhtsa_traffic_fatalities.accident_2016`.state_number=`bigquery-public-data.nhtsa_traffic_fatalities.person_2016`.state_number
+JOIN `bigquery-public-data.nhtsa_traffic_fatalities.vehicle_2016` ON `bigquery-public-data.nhtsa_traffic_fatalities.accident_2016`.state_number=`bigquery-public-data.nhtsa_traffic_fatalities.vehicle_2016`.state_number
+LIMIT 1000000;
